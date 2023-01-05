@@ -37,11 +37,11 @@ More samples can be added in the future, we do not always update this README - p
 
 This project references Ember Java API libraries located in private maven repository.
 
-Please make sure that you define environment variables `NEXUS_USER` and `NEXUS_PASS` to Deltix repository credentials provided to you.
+> Please make sure that you define environment variables `NEXUS_USER` and `NEXUS_PASS` to Deltix repository credentials provided to you.
 
 The following command runs Gradle build:
 
-```
+```sh
 ./gradlew clean build 
 ```
 
@@ -51,6 +51,6 @@ Make sure Ember is running. This sample assumes it is running locally on port 89
 
 The following command line launches DuplexSample:
 
-```
+```sh
 ./gradlew run
 ```
