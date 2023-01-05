@@ -1,0 +1,48 @@
+plugins {
+    id "java"
+    id "application"
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+}
+
+apply from: "$rootDir/gradle/deltix.gradle"
+
+repositories {
+    mavenCentral()
+    deltixMavenRepository("epm-rtc-public-java")
+}
+
+ext {
+    emberVersion = '1.11.4'
+}
+
+dependencies {
+    // for "slim" samples in deltix.ember.message.bus.samples.*
+    implementation "deltix:deltix-ember-message-bus-client:$emberVersion"
+
+    // for "fat" samples in deltix.ember.sample.* that Access EMBER_HOME etc
+    implementation "deltix:deltix-ember-app:$emberVersion"
+
+    implementation "deltix.qsrv.timebase:deltix-timebase-api:5.5.36"
+
+    // @Nullable, etc.
+    compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
+}
+
+application {
+    mainClassName = "deltix.ember.message.bus.samples.DuplexSample"
+}
+
+// ZIP with sample  to share with clients (result file can be found under build/distributions/*.zip)
+task makeZIP(type: Zip) {
+    archiveBaseName = 'ember-java-sample'
+
+    from('.') {
+        include '**/*'
+        exclude '.git/'
+        exclude '.gradle/'
+        exclude '.idea/libraries/'
+        exclude '.idea/vcs.xml'
+        exclude 'build/'
+        exclude 'out/'
+    }
+}
