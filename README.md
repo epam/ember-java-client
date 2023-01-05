@@ -9,7 +9,7 @@ Ember provides two kind of API samples:
 * Simple short time interactions with Ember (for example order request transmission or positions download). In case of errors users are advised to simply to retry full operation (including ember connection).
 * Production pipeline sample show how to stay connected to ember 24/7 and automatically reconnect. This production ready error handling adds complexity and not recommended for simple use cases.
 
-This package contains samples of the first type see <LINK> for e  
+This package contains samples of the first type, see project <LINK> for the sample of the second kind.  
 
 Additional information can be found in Trading Data Model document.
 
