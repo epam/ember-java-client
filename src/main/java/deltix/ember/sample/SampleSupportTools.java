@@ -17,11 +17,11 @@ public class SampleSupportTools {
     protected static final Log LOGGER = LogFactory.getLog("Samples");
 
     protected static void sendRequest(Consumer<Publication> callback) throws InterruptedException {
-        sendRequest(callback, EmberConfig.load(), System.out::println);
+        sendRequest(callback, EmberConfig.load(true, true), System.out::println);
     }
 
     protected static void sendRequest(Consumer<Publication> callback, Consumer<ApiMessage> eventListener) throws InterruptedException {
-        sendRequest(callback, EmberConfig.load(), eventListener);
+        sendRequest(callback, EmberConfig.load(true, true), eventListener);
     }
 
     protected static void sendRequest(Consumer<Publication> callback, Config config, Consumer<ApiMessage> eventListener) throws InterruptedException {

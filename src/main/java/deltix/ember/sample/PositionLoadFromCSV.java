@@ -23,7 +23,7 @@ import java.util.List;
  *
  *
  */
-public class PositionResetFromCSV extends SampleSupportTools {
+public class PositionLoadFromCSV extends SampleSupportTools {
 
     public static void main(String[] args) throws InterruptedException {
         sendRequest(
