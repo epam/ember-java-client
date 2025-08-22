@@ -46,8 +46,7 @@ public class PositionRequestSample extends SampleSupportTools {
                     },
 
                     (message) -> {
-                        if (message instanceof PositionReport) {
-                            PositionReport report = (PositionReport) message;
+                        if (message instanceof PositionReport report) {
                             LOGGER.info("Received position report %s").with(report);
 
                             if (report.getRequestId().equals(positionRequestId)) {
