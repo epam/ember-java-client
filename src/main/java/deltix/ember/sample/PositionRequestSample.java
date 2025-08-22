@@ -11,6 +11,7 @@ import com.epam.deltix.gflog.api.LogFactory;
 import deltix.util.io.CSVWriter;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -27,42 +28,42 @@ public class PositionRequestSample extends SampleSupportTools {
     public static void main(String[] args) throws InterruptedException, IOException {
         if (args.length != 1)
             throw new IllegalArgumentException("Expecting output CSV filename as argument");
-        final CSVWriter csvWriter = createCSV(args[0]);
-        final String positionRequestId = "PR#" + System.currentTimeMillis(); // generate unique request ID
-        final ShutdownSignal shutdownSignal = new ShutdownSignal();
+        try (CSVWriter csvWriter = createCSV(args[0])) {
+            final String positionRequestId = "PR#" + System.currentTimeMillis(); // generate unique request ID
+            final ShutdownSignal shutdownSignal = new ShutdownSignal();
 
-        sendRequest(
-                (publication) -> {
-                    MutablePositionRequest request = createPositionRequest(positionRequestId, positionProjection);
-                    publication.onPositionRequest(request);
-                    LOGGER.info("Sent position request %s for projection %s").with(request.getRequestId()).with(request.getProjection());
+            sendRequest(
+                    (publication) -> {
+                        MutablePositionRequest request = createPositionRequest(positionRequestId, positionProjection);
+                        publication.onPositionRequest(request);
+                        LOGGER.info("Sent position request %s for projection %s").with(request.getRequestId()).with(request.getProjection());
 
-                    if (shutdownSignal.await(5, TimeUnit.MINUTES))
-                        LOGGER.info("Success");
-                    else
-                        LOGGER.error("Timeout waiting for position response!");
+                        if (shutdownSignal.await(5, TimeUnit.MINUTES))
+                            LOGGER.info("Success");
+                        else
+                            LOGGER.error("Timeout waiting for position response!");
 
-                },
+                    },
 
-                (message) -> {
-                    if (message instanceof PositionReport) {
-                        PositionReport report = (PositionReport) message;
-                        LOGGER.info("Received position report %s").with(report);
+                    (message) -> {
+                        if (message instanceof PositionReport) {
+                            PositionReport report = (PositionReport) message;
+                            LOGGER.info("Received position report %s").with(report);
 
-                        if (report.getRequestId().equals(positionRequestId)) {
-                            if (! report.isFound()) {
-                                LOGGER.error("Projection %s was not found").with(positionProjection);
-                            } else {
-                                writeReport(report, csvWriter);
+                            if (report.getRequestId().equals(positionRequestId)) {
+                                if (!report.isFound()) {
+                                    LOGGER.error("Projection %s was not found").with(positionProjection);
+                                } else {
+                                    writeReport(report, csvWriter);
+                                }
+                                if (report.isLast())
+                                    shutdownSignal.signal();
                             }
-                            if (report.isLast())
-                                shutdownSignal.signal();
                         }
                     }
-                }
-        );
+            );
 
-        csvWriter.close();
+        }
 
     }
 
@@ -83,7 +84,7 @@ public class PositionRequestSample extends SampleSupportTools {
     }
 
     private static CSVWriter createCSV(String fileName) throws IOException {
-        CSVWriter writer = new CSVWriter(fileName);
+        CSVWriter writer = new CSVWriter(new File(fileName));
         writer.writeLine("Symbol", "Exchange", "Size", "Open BUY Qty", "Open SELL Qty", "Average Cost", "Realized P&L", "Unrealized P&L", "Market Value");
         return writer;
     }
