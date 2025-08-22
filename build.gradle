@@ -1,8 +1,10 @@
 plugins {
     id "java"
     id "application"
+    //id('com.gradleup.shadow') version "8.3.4" apply true
     id "com.github.johnrengelman.shadow" version "6.1.0"
 }
+
 
 apply from: "$rootDir/gradle/deltix.gradle"
 
@@ -12,7 +14,7 @@ repositories {
 }
 
 ext {
-    emberVersion = '1.11.4'
+    emberVersion = '1.14.211'
 }
 
 dependencies {
