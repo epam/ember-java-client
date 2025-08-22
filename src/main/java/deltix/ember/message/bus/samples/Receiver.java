@@ -4,8 +4,8 @@ import deltix.ember.bus.client.api.MultiplexedSubscriber;
 import deltix.ember.bus.client.api.Subscriber;
 import deltix.ember.bus.client.api.Subscription;
 import deltix.ember.message.common.ApiMessage;
-import deltix.gflog.Log;
-import deltix.gflog.LogFactory;
+import com.epam.deltix.gflog.api.Log;
+import com.epam.deltix.gflog.api.LogFactory;
 
 /** This component receives events from Ember Gateway */
 final class Receiver {

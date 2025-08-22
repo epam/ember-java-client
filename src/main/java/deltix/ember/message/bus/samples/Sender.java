@@ -6,8 +6,8 @@ import deltix.ember.bus.client.api.Publication;
 import deltix.ember.bus.client.api.PublicationException;
 import deltix.ember.message.common.ApiMessage;
 import deltix.ember.message.trade.*;
-import deltix.gflog.Log;
-import deltix.gflog.LogFactory;
+import com.epam.deltix.gflog.api.Log;
+import com.epam.deltix.gflog.api.LogFactory;
 
 import java.util.HashSet;
 import java.util.concurrent.ThreadLocalRandom;

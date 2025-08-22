@@ -6,8 +6,8 @@ import deltix.ember.app.EmberConfig;
 import deltix.ember.bus.MessageBusFactory;
 import deltix.ember.bus.client.api.*;
 import deltix.ember.message.common.ApiMessage;
-import deltix.gflog.Log;
-import deltix.gflog.LogFactory;
+import com.epam.deltix.gflog.api.Log;
+import com.epam.deltix.gflog.api.LogFactory;
 
 import java.util.function.Consumer;
 

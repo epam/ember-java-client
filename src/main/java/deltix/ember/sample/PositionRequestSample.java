@@ -6,8 +6,8 @@ import deltix.anvil.util.ShutdownSignal;
 import deltix.anvil.util.codec.AlphanumericCodec;
 import deltix.ember.message.trade.oms.MutablePositionRequest;
 import deltix.ember.message.trade.oms.PositionReport;
-import deltix.gflog.Log;
-import deltix.gflog.LogFactory;
+import com.epam.deltix.gflog.api.Log;
+import com.epam.deltix.gflog.api.LogFactory;
 import deltix.util.io.CSVWriter;
 
 import javax.annotation.Nonnull;
